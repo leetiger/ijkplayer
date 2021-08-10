@@ -46,6 +46,7 @@ IjkMediaPlayer *ijkmp_android_create(int(*msg_loop)(void*))
         goto fail;
 
     ffpipeline_set_vout(mp->ffplayer->pipeline, mp->ffplayer->vout);
+    mp->ffplayer->first_frame = -1;
 
     return mp;
 
