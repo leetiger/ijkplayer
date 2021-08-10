@@ -574,6 +574,12 @@ static int decoder_decode_frame(FFPlayer *ffp, Decoder *d, AVFrame *frame, AVSub
                 if (d->queue->abort_request)
                     return -1;
 
+                // ALOGE("lhq decoder_decode_frame frame_number %d ",d->avctx->frame_number);
+                if(d->avctx->frame_number > 0 && ffp->first_frame == -1){
+                    ffp_notify_msg1(ffp,FFP_MSG_FIRST_FRAME);
+                    ffp->first_frame = 1;
+                }
+
                 switch (d->avctx->codec_type) {
                     case AVMEDIA_TYPE_VIDEO:
                         ret = avcodec_receive_frame(d->avctx, frame);
